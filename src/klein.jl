@@ -1,10 +1,24 @@
 """
-    klein(A,B,C,t,k0,shock_exp,jumps)
+```
+klein(A,B,C,t,k0,shock_exp,jumps)
+```
 
-Return the solution of a Rational Expectations Model using Klein (2000).
+* `A,B,C` see bellow
+* `t` is the number of periods to be simulated
+* `k0` is the initial condition for the stable part of the system.
+* `shock_exp` is the expected value of the future shocks, usually zero.
+* `jump` is a vector that tells the position of the jump variables
 
+Solves a rational expectation models using Klein(2000) method. The model has to be written in the following way:
+
+\$A E_{t}(\\mathbf{x_{t+1}}) = B \\mathbf{x_t} + C \\mathbf{\\varepsilon_t}\$
+
+Where \$\\mathbf{x_t}\$ is the vector we are interested in and \$\\varepsilon_t\$ is a vector of random shocks. For now, the jumps variables must be the last variables in the system.
+
+To guarantee that there is a stable solution, we need to check the Blanchard Khan conditions: the number of eigenvalues bigger than 1 is equal to the number of non predeterminated variables in the problem (e.g. variables that depend on the expectation of its future value), which are also called jump variables.
+
+This method accepts a matrix A that is singular.
 """
-
 function klein(A,B,C,t,k0,shock_exp,jumps)
 
     F = schur(A,B)

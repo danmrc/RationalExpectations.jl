@@ -1,48 +1,6 @@
----
-title: Rational Expectations Solvers in Julia
-author: Daniel Coutinho
-date: '2018-11-25'
----
-
-This document explains the implementation of two solver for (linear) Rational Expectations model, based on Klein (2000) and Sims (2002). The implementations follow the explanation in Miao (2008).
-
-# Klein
-
-A rational expectations model can be written as
-
-$$AE_{t}()\mathbf{x_{t+1})} = B\mathbf{x_t} + C\mathbf{\varepsilon_t}$$
-
-Where $\mathbf{x_t}$ is the vector we are interested in and $\varepsilon$ is a vector of random shocks.
-
-To guarantee that there is a stable solution, we need to check the Blanchard Khan conditions: the number of eigenvalues bigger than 1 is equal to the number of non predeterminated variables in the problem (e.g. variables that depend on the expectation of its future value), which are also called _jump variables_.
-
-This method accepts a matrix A that _is singular_.
-
-The function is as follow:
-
-```
-klein(A,B,C,t,k0,shock_exp,jumps)
-```
-
-Where `A,B,C` comes from the equation above; `t` is the number of periods ahead to be forecasted, `k0` is the initial condition, `shock_ep` is the value of the _expectation of future shocks_ and `jumps` is a vector of the position of the jumps variables. _Right now, it requires the jump variables to be the last ones in the list_, so if you have a system with 4 variables and 2 jumps, the jumps should be the third and fourth variables in $\mathbf{x}$ and the variable `jumps = [3 4]`.
-
-# Sims
-
-Sims method writes the rational expectation problem in a different form:
-
-$$\Gamma_0 \mathbf{x_{t+1}} = \Gamma_1 \mathbf{x_{t}} + \Psi \mathbf{\varepsilon_t} + \Pi \mathbf{\eta_t}$$
-
-Where $\mathbf{\eta_t}$ is a vector of prevision errors, related with the errors in $\mathbf{\varepsilon}$. There is a restriction in the expectation of $\mathbf{\eta_t}$, namely $E_t{\eta_{t+1}} = 0$
-
-The `sims(G0,G1,Pi,Psi)` returns two matrices, $\Theta_1$ and $\Theta_2$ (which are saved under names theta1 and theta2). A good think about Sims's method is that you _do not need to specify which variable is a jump_. You can use the matrices with `irf` to compute the impulse response function.
-
-Although most of implementations suggests using the complex schur decomposition for $\Gamma_0$ and $\Gamma_1$, this is not done here due to numerical instability. See the end of the article in which I compare this same model IRFs for the complex and the real case. If you have to use the complex schur decomposition, just pass the arguments G0 and G1 as `complex(G0)`and `complex(G1)`.
-
-# An example
-
 We will implement the model from Galí(2008), chapter 3. We will need to write two separated models, as the sintax for the Sims solver is different of the sintaxe of the Klein solver. First, let`s use the same calibration as Galí(2008):
 
-```{julia}
+```@example 1
 
 sigma = 1
 phi_pi = 1.5
@@ -91,7 +49,7 @@ C = \begin{pmatrix}
 
 As in Gali(2008), we will set a initial monetary poliocy shock of 0.25. This works as an initial condition for the model. As usual, we set that the expected value of the shocks are zero. We will receive the impulse response function automatically.
 
-```{julia}
+```@example1
 
 using RationalExpectations
 
@@ -145,7 +103,7 @@ $$\Gamma_0 = \begin{pmatrix}
 
 See the end of this article for the whole maths of this pne. Here is it, in Julia:
 
-```{julia}
+```@example 1
 
 G0 = [[1 0 0 0];[-1 1 0 0];[0 -1 sigma 1];[0 0 0 beta]]
 G1 = [[rho_v 0 0 0];[0 0 phi_y phi_pi];[0 0 sigma 0];[0 0 -kappa 1]]
@@ -167,7 +125,7 @@ And $\Lambda_v = \frac{1}{(1-\beta{}\rho_v)[\sigma(1-\rho_v)+\phi_y]+\kappa(\phi
 
 Lets put the analytical solutions in Julia:
 
-```{julia}
+```@example 1
 
 Lambda_v = 1/((1-beta*rho_v)*(sigma*(1-rho_v)+phi_y)+kappa*(phi_pi - rho_v))
 true_y(v) = -(1-beta*rho_v)*Lambda_v*v
@@ -188,7 +146,7 @@ end
 
 We are able to compare the analytical solution with the estimated solutions. First, the shock on $v_t$
 
-```{julia}
+```@example 1
 
 using Plots
 
@@ -199,7 +157,7 @@ plot!(klein_sol[:,1], lab = "Klein Answer")
 
 Here is the shock in the output gap:
 
-```{julia}
+```@example 1
 plot(true_path[2:13,2], lab = "Analytical Solution")
 plot!(resul[:,3], lab = "Gensys Answer")
 plot!(klein_sol[:,4], lab = "Klein Answer")
@@ -207,12 +165,13 @@ plot!(klein_sol[:,4], lab = "Klein Answer")
 
 And the shock in the inflation:
 
-```{julia}
+```@example 1
 plot(4*true_path[2:13,3], lab = "Analytical Solution")
 plot!(4*resul[:,4], lab = "Gensys Answer")
 plot!(4*klein_sol[:,3], lab = "Klein Answer")
 
 ```
+
 The solutions of Klein`s method and gensys are actually close, but far away from the analytical solution. This seems to be due the Schur decomposition. Here is the IRF of the inflation to the same shock, but computed using Christopher Sims implementation in R:
 
 ![](Rplot01.png)
