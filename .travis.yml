@@ -1,6 +1,5 @@
 jobs:
   include:
-      language: julia
     - stage: "Documentation"
       julia: 1.0
       os: linux
