@@ -1,0 +1,13 @@
+name = "RationalExpectations"
+uuid = "bc060e70-f4cb-11e8-3686-4dd3030e7b95"
+authors = ["Daniel Coutinho <daniel.mar.coutinho@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+
+[compat]
+Documenter = "~0.20"
+julia = ">= 1.0.0"
