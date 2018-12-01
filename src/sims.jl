@@ -32,13 +32,13 @@ function sims(G0,G1,Pi,Psi)
         error("No stable solution")
     end
 
-    weird_e = Q1*Pi*pinv(aux)
+    xi = Q1*Pi*pinv(aux)
 
-    bb0= S12-weird_e*S22
+    bb0= S12-xi*S22
     bb1 = [[S11 bb0];[zeros(size(S22,1),size(S11,2)) Matrix{Float64}(I,size(S22,1),size(S22,1))]]
-    bb2= T12-weird_e*T22
+    bb2= T12-xi*T22
     bb3 = [[T11 bb2];zeros(size(T22,1),(size(T11,2)+size(bb2,2)))]
-    bb4 = [Q1 - weird_e*Q2;zeros(size(T22,1),(size(T11,2)+size(bb2,2)))]
+    bb4 = [Q1 - xi*Q2;zeros(size(T22,1),(size(T11,2)+size(bb2,2)))]
 
     theta1 = Z*inv(bb1)*bb3*Z'
     theta2 = Z*inv(bb1)*bb4*Psi

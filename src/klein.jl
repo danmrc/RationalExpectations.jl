@@ -1,3 +1,10 @@
+"""
+    klein(A,B,C,t,k0,shock_exp,jumps)
+
+Return the solution of a Rational Expectations Model using Klein (2000).
+
+"""
+
 function klein(A,B,C,t,k0,shock_exp,jumps)
 
     F = schur(A,B)
