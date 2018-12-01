@@ -2,7 +2,7 @@ using Documenter, RationalExpectations
 
 makedocs(sitename = "RationalExpectations",
         authors = "Daniel Coutinho",
-        doctests = false,
+        doctest = false,
         pages = Any[
                 "Home" => "index.md",
                 "Sims" => "sims.md",
