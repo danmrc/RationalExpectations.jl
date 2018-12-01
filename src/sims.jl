@@ -1,5 +1,32 @@
-using LinearAlgebra
+"""
+```
+sims(G0,G1,Pi,Psi)
+```
+This function solves a rational expectations model using Sims(2000) (aka gensys). The model should be written in the following way:
 
+\$\\Gamma_0 \\mathbf{x_{t+1}} = \\Gamma_1 \\mathbf{x_{t}} + \\Psi \\mathbf{\\varepsilon_t} + \\Pi \\mathbf{\eta_t}\$
+
+The arguments of the function are:
+
+* G0 is \$\\Gamma_0\$
+* G1 is \$\\Gamma_1\$
+* Pi is \$\\Pi\$
+* Psi is \$\\Psi\$
+
+Where \$\\Gamma_0\$ can be singular. \$\\eta_t\$ is the expectation error and \$E_{t}(\\nu_{t+1})=0\$ by construction.
+
+Sims`s solver does not require that we say what variables are jump variables.
+
+## Value
+
+The function returns theta1 and theta2, such that:
+
+\$y_t = \\Theta_1 y_{t-1} + \\Theta_2 \\varepsilon_t\$
+
+## Note
+
+Although the original algorithm allows cases with multiple equilibrium (sunspots), this has not been implemented thus far.
+"""
 function sims(G0,G1,Pi,Psi)
 
     F = schur(G0,G1)
@@ -55,6 +82,20 @@ function simulate_sys(Theta1,Theta2,t,burn)
     return y
 end
 
+"""
+```
+irf(Theta1,Theta2,t,shock)
+```
+
+Generates the IRF from the matrices calculate using the gensys.
+
+* Theta1 is the theta1 matrix from `sims`
+* Theta2 is the theta1 matrix from `sims`
+* t is the number of periodos to be simulated
+* shock is the size of the shock
+
+See also [`sims(G0,G1,Pi,Psi)`] (@ref)
+"""
 function irf(Theta1,Theta2,t,shock)
     resp = zeros((t+1),size(Theta1,1))
     for j = 1:(t+1)

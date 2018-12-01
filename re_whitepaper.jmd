@@ -213,6 +213,6 @@ plot!(4*resul[:,4], lab = "Gensys Answer")
 plot!(4*klein_sol[:,3], lab = "Klein Answer")
 
 ```
-The solutions of Klein`s method and gensys are actually close, but far away from the analytical solution . This seems to be due the Schur decomposition. Here is the IRF of the inflation to the same shock, but computed using Christopher Sims implementation in R:
+The solutions of Klein`s method and gensys are actually close, but far away from the analytical solution. This seems to be due the Schur decomposition. Here is the IRF of the inflation to the same shock, but computed using Christopher Sims implementation in R:
 
 ![](Rplot01.png)
