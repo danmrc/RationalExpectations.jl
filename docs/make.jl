@@ -10,3 +10,7 @@ makedocs(sitename = "RationalExpectations",
                 "Example" => "example.md"
                 ]
 )
+
+deploydocs(
+    repo = "github.com/danmrc/RationalExpectations.jl.git",
+)
