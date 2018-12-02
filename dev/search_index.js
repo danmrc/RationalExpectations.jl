@@ -25,22 +25,6 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "sims/#RationalExpectations.sims-NTuple{4,Any}",
-    "page": "Sims",
-    "title": "RationalExpectations.sims",
-    "category": "method",
-    "text": "sims(G0,G1,Pi,Psi)\n\nThis function solves a rational expectations model using Sims(2000) (aka gensys). The model should be written in the following way:\n\nGamma_0 mathbfx_t+1 = Gamma_1 mathbfx_t + Psi mathbfvarepsilon_t + Pi mathbfta_t\n\nThe arguments of the function are:\n\nG0 is Gamma_0\nG1 is Gamma_1\nPi is Pi\nPsi is Psi\n\nWhere Gamma_0 can be singular. eta_t is the expectation error and E_t(nu_t+1)=0 by construction.\n\nSims`s solver does not require that we say what variables are jump variables.\n\nValue\n\nThe function returns theta1 and theta2, such that:\n\ny_t = Theta_1 y_t-1 + Theta_2 varepsilon_t\n\nNote\n\nAlthough the original algorithm allows cases with multiple equilibrium (sunspots), this has not been implemented thus far.\n\n\n\n\n\n"
-},
-
-{
-    "location": "sims/#RationalExpectations.irf-NTuple{4,Any}",
-    "page": "Sims",
-    "title": "RationalExpectations.irf",
-    "category": "method",
-    "text": "irf(Theta1,Theta2,t,shock)\n\nGenerates the IRF from the matrices calculate using the gensys.\n\nTheta1 is the theta1 matrix from sims\nTheta2 is the theta1 matrix from sims\nt is the number of periodos to be simulated\nshock is the size of the shock\n\nSee also sims(G0,G1,Pi,Psi)\n\n\n\n\n\n"
-},
-
-{
     "location": "sims/#Sims-Solver-1",
     "page": "Sims",
     "title": "Sims Solver",
@@ -54,14 +38,6 @@ var documenterSearchIndex = {"docs": [
     "title": "Klein",
     "category": "page",
     "text": ""
-},
-
-{
-    "location": "klein/#RationalExpectations.klein-NTuple{7,Any}",
-    "page": "Klein",
-    "title": "RationalExpectations.klein",
-    "category": "method",
-    "text": "klein(A,B,C,t,k0,shock_exp,jumps)\n\nA,B,C see bellow\nt is the number of periods to be simulated\nk0 is the initial condition for the stable part of the system.\nshock_exp is the expected value of the future shocks, usually zero.\njump is a vector that tells the position of the jump variables\n\nSolves a rational expectation models using Klein(2000) method. The model has to be written in the following way:\n\nA E_t(mathbfx_t+1) = B mathbfx_t + C mathbfvarepsilon_t\n\nWhere mathbfx_t is the vector we are interested in and varepsilon_t is a vector of random shocks. For now, the jumps variables must be the last variables in the system.\n\nTo guarantee that there is a stable solution, we need to check the Blanchard Khan conditions: the number of eigenvalues bigger than 1 is equal to the number of non predeterminated variables in the problem (e.g. variables that depend on the expectation of its future value), which are also called jump variables.\n\nThis method accepts a matrix A that is singular.\n\n\n\n\n\n"
 },
 
 {
