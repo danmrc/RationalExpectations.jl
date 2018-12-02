@@ -12,6 +12,5 @@ makedocs(sitename = "RationalExpectations",
 )
 
 deploydocs(
-    deps = Plots,
     repo = "github.com/danmrc/RationalExpectations.jl.git"
 )

@@ -51,6 +51,7 @@ As in Gali(2008), we will set a initial monetary poliocy shock of 0.25. This wor
 
 ```@example1
 
+using  Plots, RationalExpectations
 
 A = [[1 0 0 0];[-1 1 0 0]; [0 0 beta 0]; [0 -1 1 sigma]]
 B = [[rho_v 0 0 0];[0 0 phi_pi phi_y];[0 0 1 -kappa];[0 0 0 sigma]]
