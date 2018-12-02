@@ -51,8 +51,6 @@ As in Gali(2008), we will set a initial monetary poliocy shock of 0.25. This wor
 
 ```@example1
 
-using RationalExpectations
-
 
 A = [[1 0 0 0];[-1 1 0 0]; [0 0 beta 0]; [0 -1 1 sigma]]
 B = [[rho_v 0 0 0];[0 0 phi_pi phi_y];[0 0 1 -kappa];[0 0 0 sigma]]
@@ -147,8 +145,6 @@ end
 We are able to compare the analytical solution with the estimated solutions. First, the shock on $v_t$
 
 ```@example 1
-
-using Plots
 
 plot(true_path[2:13,1], lab = "Analytical Solution")
 plot!(resul[:,1], lab = "Gensys Answer")
