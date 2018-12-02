@@ -27,7 +27,13 @@ The function returns theta1 and theta2, such that:
 
 Although the original algorithm allows cases with multiple equilibrium (sunspots), this has not been implemented thus far.
 """
-function sims(G0,G1,Pi,Psi)
+
+struct SimsSol
+    Theta1
+    Theta2
+end
+
+function sims(G0::AbstractArray,G1::AbstractArray,Pi::AbstractArray,Psi::AbstractArray)
 
     F = schur(G0,G1)
     sel = abs.(F.beta ./ F.alpha) .< 1
@@ -70,7 +76,9 @@ function sims(G0,G1,Pi,Psi)
     theta1 = Z*inv(bb1)*bb3*Z'
     theta2 = Z*inv(bb1)*bb4*Psi
 
-    return (theta1 = theta1, theta2 = theta2)
+    ret = SimsSol(theta1,theta2)
+
+    return ret
 end
 
 function simulate_sys(Theta1,Theta2,t,burn)
@@ -84,10 +92,13 @@ end
 
 """
 ```
+irf(modelo::SimsSol,t::Int,shock)
 irf(Theta1,Theta2,t,shock)
 ```
 
 Generates the IRF from the matrices calculate using the gensys.
+
+This function allows you to pass the matrices directly or to provide the whole model.
 
 * Theta1 is the theta1 matrix from `sims`
 * Theta2 is the theta1 matrix from `sims`
@@ -95,8 +106,12 @@ Generates the IRF from the matrices calculate using the gensys.
 * shock is the size of the shock
 
 See also [`sims(G0,G1,Pi,Psi)`] (@ref)
+
 """
-function irf(Theta1,Theta2,t,shock)
+function irf(modelo::SimsSol,t::Int,shock)
+    irf(Theta1::AbstractArray,Theta2::AbstractArray,t::Int,shock)
+end
+function irf(Theta1::AbstractArray,Theta2::AbstractArray,t::Int,shock)
     resp = zeros((t+1),size(Theta1,1))
     for j = 1:(t+1)
         resp[j,:] = Theta1^(j-1)*Theta2*shock

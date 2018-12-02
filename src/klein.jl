@@ -19,7 +19,7 @@ To guarantee that there is a stable solution, we need to check the Blanchard Kha
 
 This method accepts a matrix A that is singular.
 """
-function klein(A,B,C,t,k0,shock_exp,jumps)
+function klein(A::AbstractArray,B::AbstractArray,C::AbstractArray,t::Int,k0::AbstractArray,shock_exp::AbstractArray,jumps::AbstractArray)
 
     F = schur(A,B)
 
