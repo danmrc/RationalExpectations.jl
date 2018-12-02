@@ -5,6 +5,7 @@ notifications:
   apt:
     packages:
     - GR
+    -gksqt
 jobs:
   include:
     - stage: "Documentation"
