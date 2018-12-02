@@ -148,7 +148,7 @@ We are able to compare the analytical solution with the estimated solutions. Fir
 
 ```@example 1
 
-using Plots
+#using Plots
 
 #plot(true_path[2:13,1], lab = "Analytical Solution")
 #plot!(resul[:,1], lab = "Gensys Answer")
