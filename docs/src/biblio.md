@@ -1,0 +1,5 @@
+* Miao, Jianjun (2014) _Economic Dynamics in discrete Time_, MIT Press Book
+
+* Sims, Christopher(2000) _Solving Linear Rational Expectations Models_ You can read it [here](http://sims.princeton.edu/yftp/gensys/LINRE3A.pdf).
+
+* Klein, Paul (2000) _Using generalized Schur form to solve multivariate linear rational expectations model_ Journal of Economic DYnamics and Control 24(1):1405-23

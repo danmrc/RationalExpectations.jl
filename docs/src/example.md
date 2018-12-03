@@ -111,7 +111,7 @@ Pi = [[0 phi_pi 0 1];[0 phi_y sigma -kappa]]'
 
 sol_sims = sims(G0,G1,Pi,Psi)
 
-resul = irf(sol_sims.theta1,sol_sims.theta2,12,0.25)
+resul = irf(sol_sims,12,0.25)
 
 ```
 

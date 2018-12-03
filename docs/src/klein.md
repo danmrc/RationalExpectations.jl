@@ -1,5 +1,5 @@
 # Klein Solver
 
 ```@docs
-klein(A,B,C,t,k0,shock_exp,jumps)
+klein(A::AbstractArray,B::AbstractArray,C::AbstractArray,t::Int,k0::AbstractArray,shock_exp::AbstractArray,jumps::AbstractArray)
 ```

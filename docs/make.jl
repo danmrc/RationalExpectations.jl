@@ -7,7 +7,8 @@ makedocs(sitename = "RationalExpectations",
                 "Home" => "index.md",
                 "Sims" => "sims.md",
                 "Klein" => "klein.md",
-                "Example" => "example.md"
+                "Example" => "example.md",
+                "Bibliography"=> "biblio.md"
                 ]
 )
 
