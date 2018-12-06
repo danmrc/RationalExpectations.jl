@@ -3,7 +3,7 @@
 # and leave all files detected as binary untouched.
 * text=auto
 # remover o jogo da velha da linha com o nome da pasta a ser contabilizada no calculador de linguas do repo
-
+*.rb linguist-language=Julia
 #
 # The above will handle all files NOT found below
 #
