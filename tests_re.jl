@@ -2,7 +2,7 @@
 #
 #Based on Chapter 3 of Gali
 
-using LinearAlgebra
+using RationalExpectations
 using Plots
 
 #Parameters
@@ -44,8 +44,8 @@ plot(4*true_path[2:21,3])
 
 #Klein
 
-A = [[1 0 0 0];[-1 1 0 0]; [0 0 beta 0]; [0 -1 1 sigma]]
-B = [[rho_v 0 0 0];[0 0 phi_pi phi_y];[0 0 1 -kappa];[0 0 0 sigma]]
+A = [[1 0 0 0];[0 1 0 0]; [0 0 beta 0]; [0 -1 1 sigma]]
+B = [[rho_v 0 0 0];[1 0 phi_pi phi_y];[0 0 1 -kappa];[0 0 0 sigma]]
 
 C = [1;0; 0; 0]
 
@@ -63,14 +63,14 @@ plot(x[:,4])
 
 #Sims
 
-G0 = [[1 0 0 0];[-1 1 0 0];[0 -1 sigma 1];[0 0 0 beta]]
-G1 = [[rho_v 0 0 0];[0 0 phi_y phi_pi];[0 0 sigma 0];[0 0 -kappa 1]]
+G0 = [[1 0 0 0];[0 1 0 0];[0 -1 sigma 1];[0 0 0 beta]]
+G1 = [[rho_v 0 0 0];[1 0 phi_y phi_pi];[0 0 sigma 0];[0 0 -kappa 1]]
 Psi = [1 0 0 0]'
 Pi = [[0 phi_pi 0 1];[0 phi_y sigma -kappa]]'
 
 matrizes = sims(G0,G1,Pi,Psi)
 
-resul = irf(matrizes,20,0.25)
+resul = irf(real(matrizes.Theta1),real(matrizes.Theta2),20,0.25)
 
 plot(0:20,resul[:,1])
 plot(4*resul[:,2])
