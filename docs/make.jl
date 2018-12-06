@@ -1,4 +1,4 @@
-using Documenter, RationalExpectations
+using Documenter, RationalExpectations, Plots
 
 makedocs(sitename = "RationalExpectations",
         authors = "Daniel Coutinho",
