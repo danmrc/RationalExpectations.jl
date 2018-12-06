@@ -12,8 +12,5 @@
 .gitignore text
 .md text
 .Rmd text
-docs/* linguist-vendored
-public/* linguist-vendored
-.Rproj.user/* linguist-vendored
-themes/* linguist-vendored
-content/* linguist-vendored
+docs/* linguist-documentation
+
