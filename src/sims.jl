@@ -114,7 +114,6 @@ This function allows you to pass the matrices directly or to provide the whole m
 * shock is the size of the shock
 
 See also [`sims(G0,G1,Pi,Psi)`] (@ref)
-
 """
 function irf(Theta1::AbstractArray,Theta2::AbstractArray,t::Int,shock)
     resp = zeros((t+1),size(Theta1,1))

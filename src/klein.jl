@@ -43,7 +43,7 @@ function klein(A::AbstractArray,B::AbstractArray,C::AbstractArray,t::Int,k0::Abs
     Z = F.Z
     T = F.T
     S = F.S
-
+    
     u_index = findfirst(abs.(gen_eig) .> 1)
 
     T11 = T[1:(u_index-1),1:(u_index-1)]
