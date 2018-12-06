@@ -175,9 +175,9 @@ We are able to compare the analytical solution with the estimated solutions. Fir
 
 ```@example1
 
-plot(true_path[2:13,1], lab = "Analytical Solution", lw = 2)
-plot!(resul[:,1], lab = "Gensys Answer", linestyle = :dash, lw = 2)
-plot!(klein_sol[:,1], lab = "Klein Answer", linestyle = :dot, lw = 2)
+plot(true_path[2:13,1], lab = "Analytical Solution", linestyle = :dash, lw = 3)
+plot!(resul[:,1], lab = "Gensys Answer", linestyle = :dash, lw = 3)
+plot!(klein_sol[:,1], lab = "Klein Answer", linestyle = :dot, lw = 3)
 
 ```
 
@@ -185,9 +185,9 @@ Here is the shock in the output gap:
 
 ```@example1
 
-plot(true_path[2:13,2], lab = "Analytical Solution", lw = 2)
-plot!(resul[:,3], lab = "Gensys Answer", linestyle = :dash, lw = 2)
-plot!(klein_sol[:,4], lab = "Klein Answer", linestyle = :dot, lw = 2)
+plot(true_path[2:13,2], lab = "Analytical Solution", linestyle = :dash,lw = 3)
+plot!(resul[:,3], lab = "Gensys Answer", linestyle = :dash, lw = 3)
+plot!(klein_sol[:,4], lab = "Klein Answer", linestyle = :dot, lw = 3)
 
 ```
 
@@ -195,8 +195,8 @@ And the shock in the inflation:
 
 ```@example1
 
-plot(4*true_path[2:13,3], lab = "Analytical Solution", lw = 2)
-plot!(4*resul[:,4], lab = "Gensys Answer", linestyle = :dash, lw = 2)
-plot!(4*klein_sol[:,3], lab = "Klein Answer", linestyle = :dot, lw = 2)
+plot(4*true_path[2:13,3], lab = "Analytical Solution", linestyle = :dash, lw = 3)
+plot!(4*resul[:,4], lab = "Gensys Answer", linestyle = :dash, lw = 3)
+plot!(4*klein_sol[:,3], lab = "Klein Answer", linestyle = :dot, lw = 3)
 
 ```
