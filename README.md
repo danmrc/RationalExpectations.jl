@@ -1,6 +1,6 @@
 # RationalExpectations.jl
 
-Routines to solve Rational Expectation models in Julia.
+Routines to solve Rational Expectation models in Julia 1.0.
 
 This is under development. I am pretty much following the excellent _Economic Dynamics in Discrete Time_ by Jianjun Miao.
 
