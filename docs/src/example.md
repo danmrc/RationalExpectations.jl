@@ -42,7 +42,8 @@ E_t(\tilde{y}_{t+1})\\
 
 Notice that we are using $\mathbf{v_{t+1}}$ on the left hand side. Using $v_{\mathbf{t}}$ will generate the wrong matrices. We will write this in a way that is consistent with the Klein method (equation 1), so the matrices are
 
-$A = \begin{pmatrix}
+$A =
+\begin{pmatrix}
 1 & 0 & 0 & 0\\
 0 & 1 & 0 & 0\\
 0 & 0 & \beta & 0\\
