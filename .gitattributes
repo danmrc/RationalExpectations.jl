@@ -13,5 +13,6 @@
 .md text
 .Rmd text
 
-docs/* linguist-documentation=true
+src/ linguist-detectable=true
+docs/ linguist-documentation=true
 *.jl linguist-language=Julia
