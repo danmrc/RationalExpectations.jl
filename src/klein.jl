@@ -39,7 +39,7 @@ function klein(A::AbstractArray,B::AbstractArray,C::AbstractArray,t::Int,k0::Abs
     else (@info "Blanchard Khan conditions satisfied!")
     end
 
-    Q = F.Q
+    Q = F.Q'
     Z = F.Z
     T = F.T
     S = F.S

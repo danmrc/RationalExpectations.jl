@@ -32,18 +32,15 @@ function sims(G0::AbstractArray,G1::AbstractArray,Pi::AbstractArray,Psi::Abstrac
     F = schur(G0,G1)
     sel = abs.(F.beta ./ F.alpha) .< 1
     ordschur!(F, sel)
-    u_index = findfirst(abs.(F.beta ./F.alpha) .> 1)
+    gen_eigen = abs.(F.beta ./F.alpha)
+    u_index = findfirst(gen_eigen .> 1)
 
-    Z,Q = F.Z, F.Q
+    unst = sum(gen_eigen .> 1)
+    stb = sum(gen_eigen .< 1)
+
+    Z,Q,S,T = F.Z, F.Q',F.S,F.T
 
     n = size(F.S,2)
-    S11 = F.S[1:(u_index-1),1:(u_index-1)]
-    S12 = F.S[1:(u_index-1),(u_index):n]
-    S22 = F.S[(u_index):n,(u_index):n]
-
-    T11 = F.T[1:(u_index-1),1:(u_index-1)]
-    T12 = F.T[1:(u_index-1),(u_index):n]
-    T22 = F.T[(u_index):n,(u_index):n]
 
     Q1 = Q[1:(u_index-1),:]
     Q2 = Q[u_index:n,:]
@@ -51,9 +48,10 @@ function sims(G0::AbstractArray,G1::AbstractArray,Pi::AbstractArray,Psi::Abstrac
     aux = Q2*Pi
     m = size(Pi,2)
     svd_dec = svd(aux)
-    if m > size(svd_dec.S,1)
-        error("No unique Stable Solution. Not implemented yet")
-    elseif m == size(svd_dec.S,1)
+    r = size(svd_dec.S,1)
+    if m > r
+        @info "No unique Stable Solution"
+    elseif m == r
         @info "Unique Solution Available"
     else
         error("No stable solution")
@@ -61,16 +59,31 @@ function sims(G0::AbstractArray,G1::AbstractArray,Pi::AbstractArray,Psi::Abstrac
 
     xi = Q1*Pi*pinv(aux)
 
-    bb0= S12-xi*S22
-    bb1 = [[S11 bb0];[zeros(size(S22,1),size(S11,2)) Matrix{Float64}(I,size(S22,1),size(S22,1))]]
-    bb2= T12-xi*T22
-    bb3 = [[T11 bb2];zeros(size(T22,1),(size(T11,2)+size(bb2,2)))]
-    bb4 = [Q1 - xi*Q2;zeros(size(T22,1),(size(T11,2)+size(bb2,2)))]
+    ixi = [Matrix{Float64}(I,size(xi,1),size(xi,2)) -xi]
 
-    theta1 = Z*inv(bb1)*bb3*Z'
-    theta2 = Z*inv(bb1)*bb4*Psi
+    bb1 = ixi*S
+    bb2 = ixi*T
+    bb3 = ixi*Q
 
-    ret = SimsSol(theta1,theta2)
+    b1 = [bb1; zeros(unst,unst) Matrix{Float64}(I,size(bb1,1),size(bb1,1))]
+    b2 = [bb2;zeros(unst,size(bb2,2))]
+    b3 = [bb3; zeros(unst,size(bb3,2))]
+
+    theta1 = Z*inv(b1)*b2*Z'
+    theta2 = Z*inv(b1)*b3*Psi
+
+    if m > r
+        V1 = svd_dec.V[1:r,:]
+        V2 = svd_dec.V[r+1:size(svd_dec.V,1),:]
+        Vs = V1*V1'
+        bb5 = Q1*Pi*(Matrix{Float64}(I,size(Vs,1),size(Vs,2))-Vs)
+        bb6 = [bb5;zeros(unst,size(bb5,2))]
+        theta3 = Z*inv(b1)*bb6*V2
+        ret = (theta1,theta2,theta3)
+    else
+    theta3 = nothing
+    ret = SimsSol(theta1,theta2,theta3)
+    end
 
     return ret
 end

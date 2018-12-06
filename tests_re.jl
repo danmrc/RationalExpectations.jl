@@ -15,7 +15,7 @@ phi = 1
 alph = 1/3
 ep = 6
 theta = 2/3
-rho_v = 0
+rho_v = 0.5
 
 Theta = (1-alph)/(1-alph+alph*ep)
 lambda = (1-theta)*((1-beta*theta)/theta)*Theta
@@ -70,7 +70,7 @@ Pi = [[0 phi_pi 0 1];[0 phi_y sigma -kappa]]'
 
 matrizes = sims(G0,G1,Pi,Psi)
 
-resul = irf(matrizes.theta1,matrizes.theta2,20,0.25)
+resul = irf(matrizes,20,0.25)
 
 plot(0:20,resul[:,1])
 plot(4*resul[:,2])

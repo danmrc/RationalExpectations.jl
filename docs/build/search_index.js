@@ -49,11 +49,11 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "sims/#Issues-1",
+    "location": "sims/#Note-1",
     "page": "Sims",
-    "title": "Issues",
+    "title": "Note",
     "category": "section",
-    "text": "Although most implementations force to use the complex Schur, we don`t do it here (and discourage it). Here what happens when you use the schur decomposition with complex Gamma_0 and Gamma_1:\nusing Plots\nusing RationalExpectations\n\nsigma = 1\nphi_pi = 1.5\nphi_y = 0.5/4\nbeta = 0.99\nphi = 1\nalph = 1/3\nep = 6\ntheta = 2/3\nrho_v = 0.5\n\nTheta = (1-alph)/(1-alph+alph*ep)\nlambda = (1-theta)*((1-beta*theta)/theta)*Theta\nkappa = lambda*(sigma+(phi+alph)/(1-alph))\n\nG0 = [[1 0 0 0];[-1 1 0 0];[0 -1 sigma 1];[0 0 0 beta]]\nG1 = [[rho_v 0 0 0];[0 0 phi_y phi_pi];[0 0 sigma 0];[0 0 -kappa 1]]\nPsi = [1 0 0 0]\'\nPi = [[0 phi_pi 0 1];[0 phi_y sigma -kappa]]\'\n\nsol_sims = sims(complex(G0),complex(G1),Pi,Psi)\n\nresul = irf(real(sol_sims.Theta1),real(sol_sims.Theta2),12,0.25)\nLet\'s plot the IRF of the shock to the monetary policy, that is an AR(1) with rho_v = 05:\nplot(resul[:,1], leg = false)\nSolutions are welcomed. On the other hand, klein does not suffer from this issue."
+    "text": "We don\'t force Julia to use the complex Schur decomposition. If you want it, just use sims(complex(G0),complex(G1),Pi,Psi). However, you will not be able to plot (yet) simply passing the model to irf"
 },
 
 {
