@@ -112,7 +112,7 @@ $$\Gamma_0 = \begin{pmatrix}
 0 & 0\\
 \phi_y & \phi_pi\\
 \sigma & 0\\
--\kappa & 1]]
+-\kappa & 1\\
 \end{pmatrix}$$
 
 And the variables are ordered as:
