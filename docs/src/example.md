@@ -26,7 +26,10 @@ i_t = \rho + \phi_{\pi}\pi_t + \phi_{\tilde{y}_t}\tilde{y}_t + v_t\\
 v_t = \rho_v v_{t-1} + \varepsilon_v\\$$
 
 
-We ignore the $r^n_t$ term as Galí(2008) does. The ordering of the variables for this model is:
+We ignore the $r^n_t$ term as Galí(2008) does.
+
+## Klein
+ The ordering of the variables for this model is:
 
 $$x_{t+1} = \begin{pmatrix}
 v_{t+1}\\
@@ -119,8 +122,7 @@ v_{t+1}\\
 i_t\\
 E_t(\tilde{y}_{t+1})\\
 E_t(\pi_{t+1})\\
-\end{pmatrix}
-$$
+\end{pmatrix}$$
 
 See the end of this article for the whole maths of this transformation. Here is it, in Julia:
 
@@ -137,7 +139,9 @@ resul = irf(sol_sims,12,0.25)
 
 ```
 
-Last, but not least, Galí gives an analytical solution for $\tilde{y}_t$ and $\pi_t$ They are:
+## Analytical Solution and comparison
+
+Last, but not least, Galí(2008) gives an analytical solution for $\tilde{y}_t$ and $\pi_t$ They are:
 
 $$\tilde{y}_t = -(1-\beta{}\rho_v) \Lambda_v v_t\\
 \pi_t = -\kappa\Lambda_v v_t$$
