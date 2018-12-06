@@ -174,8 +174,8 @@ We are able to compare the analytical solution with the estimated solutions. Fir
 ```@example1
 
 plot(true_path[2:13,1], lab = "Analytical Solution")
-plot!(resul[:,1], lab = "Gensys Answer", linestyle = :dash))
-plot!(klein_sol[:,1], lab = "Klein Answer", linestyle = :dot))
+plot!(resul[:,1], lab = "Gensys Answer", linestyle = :dash)
+plot!(klein_sol[:,1], lab = "Klein Answer", linestyle = :dot)
 ```
 
 Here is the shock in the output gap:
