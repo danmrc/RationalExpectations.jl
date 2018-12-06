@@ -32,7 +32,8 @@ We ignore the $r^n_t$ term as Galí(2008) does.
 
 The ordering of the variables for this model is:
 
-$x_{t+1} = \begin{pmatrix}
+$x_{t+1} =
+\begin{pmatrix}
 v_{t+1}\\
 i_t\\
 E_t(\pi_{t+1})\\
@@ -176,6 +177,7 @@ We are able to compare the analytical solution with the estimated solutions. Fir
 plot(true_path[2:13,1], lab = "Analytical Solution")
 plot!(resul[:,1], lab = "Gensys Answer", linestyle = :dash)
 plot!(klein_sol[:,1], lab = "Klein Answer", linestyle = :dot)
+
 ```
 
 Here is the shock in the output gap:
