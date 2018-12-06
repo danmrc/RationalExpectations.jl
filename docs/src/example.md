@@ -183,8 +183,8 @@ Here is the shock in the output gap:
 ```@example1
 
 plot(true_path[2:13,2], lab = "Analytical Solution")
-plot!(resul[:,3], lab = "Gensys Answer")
-plot!(klein_sol[:,4], lab = "Klein Answer")
+plot!(resul[:,3], lab = "Gensys Answer", linestyle = ":dash")
+plot!(klein_sol[:,4], lab = "Klein Answer", linestyle = ":dot")
 
 ```
 
@@ -193,7 +193,7 @@ And the shock in the inflation:
 ```@example1
 
 plot(4*true_path[2:13,3], lab = "Analytical Solution")
-plot!(4*resul[:,4], lab = "Gensys Answer")
-plot!(4*klein_sol[:,3], lab = "Klein Answer")
+plot!(4*resul[:,4], lab = "Gensys Answer", linestyle = ":dash")
+plot!(4*klein_sol[:,3], lab = "Klein Answer", linestyle = ":dot")
 
 ```
