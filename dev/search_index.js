@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Sims",
     "title": "RationalExpectations.sims",
     "category": "method",
-    "text": "sims(G0,G1,Pi,Psi)\n\nThis function solves a rational expectations model using Sims(2000) (aka gensys). The model should be written in the following way:\n\nGamma_0 mathbfx_t+1 = Gamma_1 mathbfx_t + Psi mathbfvarepsilon_t + Pi mathbfta_t\n\nThe arguments of the function are:\n\nG0 is Gamma_0\nG1 is Gamma_1\nPi is Pi\nPsi is Psi\n\nWhere Gamma_0 can be singular. eta_t is the expectation error and E_t(nu_t+1)=0 by construction.\n\nSims`s solver does not require that we say what variables are jump variables.\n\nValue\n\nThe function returns theta1 and theta2, such that:\n\ny_t = Theta_1 y_t-1 + Theta_2 varepsilon_t\n\nNote\n\nAlthough the original algorithm allows cases with multiple equilibrium (sunspots), this has not been implemented thus far.\n\n\n\n\n\n"
+    "text": "sims(G0,G1,Pi,Psi)\n\nThis function solves a rational expectations model using Sims(2000) (aka gensys). The model should be written in the following way:\n\nGamma_0 mathbfx_t+1 = Gamma_1 mathbfx_t + Psi mathbfvarepsilon_t + Pi mathbfeta_t\n\nThe arguments of the function are:\n\nG0 is Gamma_0\nG1 is Gamma_1\nPi is Pi\nPsi is Psi\n\nWhere Gamma_0 can be singular. eta_t is the expectation error and E_t(nu_t+1)=0 by construction.\n\nSims\'s solver does not require that we say what variables are jump variables.\n\nValue\n\nIf the model has a unique solution, the function returns theta1 and theta2, such that:\n\ny_t = Theta_1 y_t-1 + Theta_2 varepsilon_t\n\nOtherwise, it may be the case in which there is no stable solution (and the function throws an error) or multiple solutions (sunspots). In this last case, the function also returns a matrix theta3, such that:\n\ny_t = Theta_1 y_t-1 + Theta_2 varepsilon_t + Theta_3 u_t\n\nWhere u_t is a sunspot shock\n\nNotes\n\nSims\'s orignal implementation also provide as an output a vector eu, signalling if there is an equilibrium and if it is unique. This information is given as an info or an error by our function.\nWe don\'t force Julia to use the complex Schur decomposition. If you want it, just use sims(complex(G0),complex(G1),Pi,Psi). However, you will not be able to plot (yet) simply passing the model to irf.\nWe don\'t check the usual Blanchard Khan conditions with this function (since there are no jump variables defined). klein(A,B,C,t,k0,shock_exp,jumps) does that. However, it takes a different set of matrices. \n\n\n\n\n\n"
 },
 
 {
@@ -54,14 +54,6 @@ var documenterSearchIndex = {"docs": [
     "title": "Important",
     "category": "section",
     "text": "When you add an autocorrelated shock to the system, the value on the lhs must be on t+1. Otherwise, the IRF will be wrongly computed."
-},
-
-{
-    "location": "sims/#Note-1",
-    "page": "Sims",
-    "title": "Note",
-    "category": "section",
-    "text": "We don\'t force Julia to use the complex Schur decomposition. If you want it, just use sims(complex(G0),complex(G1),Pi,Psi). However, you will not be able to plot (yet) simply passing the model to irf"
 },
 
 {
