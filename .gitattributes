@@ -12,5 +12,5 @@
 .gitignore text
 .md text
 .Rmd text
-project-docs/* linguist-documentation
+docs/* linguist-documentation
 
