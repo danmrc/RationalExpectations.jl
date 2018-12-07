@@ -12,5 +12,5 @@
 .gitignore text
 .md text
 .Rmd text
-docs/* linguist-documentation
+docs/* linguist-documentation=true
 
