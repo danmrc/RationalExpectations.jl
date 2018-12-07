@@ -4,7 +4,7 @@ sims(G0,G1,Pi,Psi)
 ```
 This function solves a rational expectations model using Sims(2000) (aka gensys). The model should be written in the following way:
 
-\$\\Gamma_0 \\mathbf{x_{t+1}} = \\Gamma_1 \\mathbf{x_{t}} + \\Psi \\mathbf{\\varepsilon_t} + \\Pi \\mathbf{\eta_t}\$
+\$\\Gamma_0 \\mathbf{x_{t+1}} = \\Gamma_1 \\mathbf{x_{t}} + \\Psi \\mathbf{\\varepsilon_t} + \\Pi \\mathbf{\\eta_t}\$
 
 The arguments of the function are:
 
@@ -15,17 +15,26 @@ The arguments of the function are:
 
 Where \$\\Gamma_0\$ can be singular. \$\\eta_t\$ is the expectation error and \$E_{t}(\\nu_{t+1})=0\$ by construction.
 
-Sims`s solver does not require that we say what variables are jump variables.
+Sims's solver does not require that we say what variables are jump variables.
 
 ## Value
 
-The function returns theta1 and theta2, such that:
+If the model has a unique solution, the function returns theta1 and theta2, such that:
 
 \$y_t = \\Theta_1 y_{t-1} + \\Theta_2 \\varepsilon_t\$
 
-## Note
+Otherwise, it may be the case in which there is no stable solution (and the function throws an error) or multiple solutions (sunspots). In this last case, the function also returns a matrix theta3, such that:
 
-Although the original algorithm allows cases with multiple equilibrium (sunspots), this has not been implemented thus far.
+\$y_t = \\Theta_1 y_{t-1} + \\Theta_2 \\varepsilon_t + \\Theta_3 u_t\$
+
+Where \$u_t\$ is a sunspot shock
+
+## Notes
+
+* Sims's orignal implementation also provide as an output a vector `eu`, signalling if there is an equilibrium and if it is unique. This information is given as an info or an error by our function.
+* We don't force Julia to use the complex Schur decomposition. If you want it, just use `sims(complex(G0),complex(G1),Pi,Psi)`. However, you will not be able to plot (yet) simply passing the model to `irf`.
+* We don't check the usual Blanchard Khan conditions with this function (since there are no jump variables defined). [`klein(A,B,C,t,k0,shock_exp,jumps)`] (@ref) does that. However, it takes a different set of matrices. 
+
 """
 function sims(G0::AbstractArray,G1::AbstractArray,Pi::AbstractArray,Psi::AbstractArray)
 
