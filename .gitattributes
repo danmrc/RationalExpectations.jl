@@ -13,4 +13,5 @@
 .md text
 .Rmd text
 docs/* linguist-documentation
+dev/* linguist-documentation
 
