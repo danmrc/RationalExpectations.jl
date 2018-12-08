@@ -1,5 +1,0 @@
-
-docs/* linguist-documentation
-dev/* linguist-documentation
-*.jl linguist-language=Julia
-
