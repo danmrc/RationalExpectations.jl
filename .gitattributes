@@ -13,3 +13,4 @@
 .md text
 .Rmd text
 docs/* linguist-vendored
+*.html linguist-vendored
